@@ -31,7 +31,7 @@ const Navbar = ({ title, user }) => {
                                     </Link>
                                 </li>
                                 <li><Link>Settings</Link></li>
-                                <li><Link href={route('logout')} as="button" >Logout</Link></li>
+                                <li><Link href={route('logout')} as="button" method="POST">Logout</Link></li>
                             </>
                         }
                     </ul>
