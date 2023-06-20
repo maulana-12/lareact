@@ -6,7 +6,7 @@ import Paginator from '@/Components/Homepage/Paginator'
 
 
 export default function Homepage(props) {
-  // console.log(props)
+  console.log(props)
   return (
     <div className="min-h-screen bg-slate-50">
       <Head title={props.title} />
