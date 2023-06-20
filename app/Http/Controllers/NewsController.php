@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Resources\NewsCollection;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class NewsController extends Controller
@@ -57,24 +59,33 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(News $news)
+    public function edit(News $news, Request $request)
     {
-        //
+        return Inertia::render('EditNews', [
+            'myNews' => $news->find($request->id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request)
     {
-        //
+        News::where('id', $request->id)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category' => $request->category,
+        ]);
+        return to_route('dashboard');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(News $news)
+    public function destroy(Request $request)
     {
-        //
+        $news = News::find($request->id);
+        $news->delete();
+        return redirect()->back()->with('message', 'berita berhasil dihapus');
     }
 }
